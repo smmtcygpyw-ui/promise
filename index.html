@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For Sayra — A Celebration of Friendship</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="stars-container" id="stars"></div>
+    <div class="petals-container" id="petals"></div>
+    <div class="cursor-glow" id="cursor-glow"></div>
+
+    <div class="music-player" id="music-player">
+        <button class="music-btn" id="play-pause-btn" aria-label="Play/Pause Music">
+            <span class="icon" id="play-icon">▶</span>
+            <span class="icon hidden" id="pause-icon">⏸</span>
+        </button>
+        <button class="music-btn" id="mute-btn" aria-label="Mute/Unmute">
+            <span id="mute-icon">🔊</span>
+        </button>
+        <div class="volume-slider-container">
+            <input type="range" id="volume-slider" min="0" max="1" step="0.01" value="0.7">
+        </div>
+    </div>
+    <audio id="bg-audio" loop>
+        <source src="music.mp3" type="audio/mp3">
+    </audio>
+
+    <div id="loading-screen" class="loading-screen">
+        <div class="loading-content">
+            <p class="loading-title">Searching memories...</p>
+            <ul class="loading-list">
+                <li class="loading-item" id="item-1"><span class="check">✔</span> Random Follow Request</li>
+                <li class="loading-item" id="item-2"><span class="check">✔</span> Endless Conversations</li>
+                <li class="loading-item" id="item-3"><span class="check">✔</span> Beautiful Voice Notes</li>
+                <li class="loading-item" id="item-4"><span class="check">✔</span> Softie 🧸🫶</li>
+                <li class="loading-item" id="item-5"><span class="check">✔</span> One Unexpected Poem</li>
+                <li class="loading-item" id="item-6"><span class="check">✔</span> Gratitude Found</li>
+            </ul>
+        </div>
+    </div>
+
+    <main id="main-content" class="hidden-content">
+        
+        <section class="hero section-padding">
+            <div class="glass-card hero-card">
+                <h1 class="typewriter-text" id="hero-title"></h1>
+                <p class="hero-subtitle fade-in-delayed">
+                    This isn't just a website.<br>
+                    It's something I wanted to create for someone who unknowingly gave me one of the most meaningful surprises I've ever received.
+                </p>
+                <button class="btn-apple" id="open-gift-btn">Open My Gift</button>
+            </div>
+        </section>
+
+        <section class="journey section-padding">
+            <div class="section-header scroll-reveal">
+                <h2>Our Journey</h2>
+                <p>How a completely random moment turned into a beautiful circumstance.</p>
+            </div>
+            
+            <div class="timeline">
+                <div class="timeline-item scroll-reveal">
+                    <div class="glass-card timeline-card">
+                        <span class="timeline-tag">The Beginning</span>
+                        <h3>Random Follow Request</h3>
+                        <p>Neither of us expected anything. Just a random notification that quietly set a story into motion.</p>
+                    </div>
+                </div>
+                <div class="timeline-item scroll-reveal">
+                    <div class="glass-card timeline-card">
+                        <span class="timeline-tag">Comfort</span>
+                        <h3>First Conversation & Beyond</h3>
+                        <p>A simple hello slowly became sincere. Becoming comfortable usually takes months, but with aap, it felt natural in just days.</p>
+                    </div>
+                </div>
+                <div class="timeline-item scroll-reveal">
+                    <div class="glass-card timeline-card">
+                        <span class="timeline-tag">Everyday Magic</span>
+                        <h3>Voice Notes & Songs</h3>
+                        <p>From listening to your beautiful voice notes to hearing you sing songs—each ordinary day suddenly brightened.</p>
+                    </div>
+                </div>
+                <div class="timeline-item scroll-reveal">
+                    <div class="glass-card timeline-card">
+                        <span class="timeline-tag">Nicknames</span>
+                        <h3>Softie 🧸🫶 & Fav Singer 🎤🌸</h3>
+                        <p>Little names that carry so much respect, warmth, and genuine care. You never felt like just a junior; you felt like an old friend.</p>
+                    </div>
+                </div>
+                <div class="timeline-item scroll-reveal">
+                    <div class="glass-card timeline-card">
+                        <span class="timeline-tag">Trust</span>
+                        <h3>The Pinned Chat</h3>
+                        <p>Archived stories shared, good night messages every evening, and a spot pinned at the top. A silent reminder of a rare and precious bond.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="poem-section section-padding">
+            <div class="section-header scroll-reveal">
+                <h2>One Unexpected Poem</h2>
+                <p>No one has ever done something like this for me. This sacred page is the heart of this gift.</p>
+            </div>
+            <div class="poem-container scroll-reveal">
+                <div class="poem-frame" id="poem-frame">
+                    <img src="poem.png" alt="Handwritten Poem by Sayra" class="poem-image" id="poem-img">
+                    <div class="poem-overlay">
+                        <span>Click to expand & read</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div id="image-modal" class="modal hidden">
+            <span class="close-modal" id="close-modal">&times;</span>
+            <img class="modal-content" id="full-poem-img">
+        </div>
+
+        <section class="message-section section-padding">
+            <div class="glass-card message-card scroll-reveal">
+                <h2>Beyond a Simple Thank You</h2>
+                <p class="message-body">
+                    When aap shared that handwritten poem with me, a simple "thank you" felt entirely insufficient. Some surprises touch the heart so deeply that they deserve something built purely to honor them. 
+                </p>
+                <p class="message-body">
+                    It is truly rare to find someone who notices the little things, who genuinely cares, and who brings such a comforting smile into ordinary days. I am profoundly grateful that our paths crossed by chance, turning a random moment into such a cherished friendship.
+                </p>
+            </div>
+        </section>
+
+        <section class="promise-section section-padding">
+            <div class="glass-card promise-card scroll-reveal">
+                <div class="promise-intro">You once asked me for one promise...</div>
+                <h3 class="promise-quote">"Don't let our friendship fade..."</h3>
+                <div class="promise-text">
+                    <p>I promise to always value this friendship, and to treat it with the warmth and respect it deserves.</p>
+                    <p>I promise to never let it fade from my side.</p>
+                    <p>No matter where life takes us, I will always be grateful that one random follow request introduced me to such a wonderful person, Sayra.</p>
+                </div>
+            </div>
+        </section>
+
+        <footer class="ending-section section-padding scroll-reveal">
+            <div class="ending-content">
+                <p class="ending-quote">Some gifts are expensive.<br>Some gifts are unforgettable.<br>Yours became both.</p>
+                <div class="signature">
+                    <p>Thank You,<br><span class="name">Sayra.</span></p>
+                    <p class="author">— Atharv</p>
+                </div>
+            </div>
+        </footer>
+
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
