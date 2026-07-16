@@ -1,5 +1,37 @@
 document.addEventListener("DOMContentLoaded", () => {
-    /* 1. Loading Screen Sequence */
+    /* 1. Starry Sky & Floating Flower Petals Generation (Run early for loading screen ambient effect) */
+    const starsContainer = document.getElementById("stars");
+    const petalsContainer = document.getElementById("petals");
+    const starCount = window.innerWidth < 768 ? 50 : 120;
+    const petalCount = window.innerWidth < 768 ? 15 : 30;
+
+    for (let i = 0; i < starCount; i++) {
+        const star = document.createElement("div");
+        star.classList.add("star");
+        const size = Math.random() * 2.5 + 1;
+        star.style.width = `${size}px`;
+        star.style.height = `${size}px`;
+        star.style.top = `${Math.random() * 100}vh`;
+        star.style.left = `${Math.random() * 100}vw`;
+        star.style.animationDuration = `${Math.random() * 3 + 2}s`;
+        star.style.animationDelay = `${Math.random() * 3}s`;
+        starsContainer.appendChild(star);
+    }
+
+    for (let i = 0; i < petalCount; i++) {
+        const petal = document.createElement("div");
+        petal.classList.add("petal");
+        const width = Math.random() * 12 + 10;
+        const height = width * 1.4;
+        petal.style.width = `${width}px`;
+        petal.style.height = `${height}px`;
+        petal.style.left = `${Math.random() * 100}vw`;
+        petal.style.animationDuration = `${Math.random() * 8 + 7}s`;
+        petal.style.animationDelay = `${Math.random() * 10}s`;
+        petalsContainer.appendChild(petal);
+    }
+
+    /* 2. Loading Screen Sequence */
     const loadingItems = document.querySelectorAll(".loading-item");
     const loadingScreen = document.getElementById("loading-screen");
     const mainContent = document.getElementById("main-content");
@@ -23,7 +55,7 @@ document.addEventListener("DOMContentLoaded", () => {
         setTimeout(typeHeroTitle, 500);
     }, delay + 800);
 
-    /* 2. Audio Control System & Auto-Play handling */
+    /* 3. Audio Control System & Auto-Play handling */
     const playPauseBtn = document.getElementById("play-pause-btn");
     const playIcon = document.getElementById("play-icon");
     const pauseIcon = document.getElementById("pause-icon");
@@ -86,7 +118,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document.addEventListener("click", handleFirstInteraction);
     document.addEventListener("keydown", handleFirstInteraction);
 
-    /* 3. Hero Typewriter Effect */
+    /* 4. Hero Typewriter Effect */
     const textToType = "Hi Sayra 🌸";
     const typeTarget = document.getElementById("hero-title");
     const subtitle = document.querySelector(".hero-subtitle");
@@ -102,43 +134,11 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    /* 4. Button Smooth Scroll to Gift Journey */
+    /* 5. Button Smooth Scroll to Gift Journey */
     document.getElementById("open-gift-btn").addEventListener("click", () => {
         const journeySection = document.querySelector(".journey");
         journeySection.scrollIntoView({ behavior: "smooth" });
     });
-
-    /* 5. Starry Sky & Floating Flower Petals Generation */
-    const starsContainer = document.getElementById("stars");
-    const petalsContainer = document.getElementById("petals");
-    const starCount = window.innerWidth < 768 ? 50 : 120;
-    const petalCount = window.innerWidth < 768 ? 15 : 30;
-
-    for (let i = 0; i < starCount; i++) {
-        const star = document.createElement("div");
-        star.classList.add("star");
-        const size = Math.random() * 2.5 + 1;
-        star.style.width = `${size}px`;
-        star.style.height = `${size}px`;
-        star.style.top = `${Math.random() * 100}vh`;
-        star.style.left = `${Math.random() * 100}vw`;
-        star.style.animationDuration = `${Math.random() * 3 + 2}s`;
-        star.style.animationDelay = `${Math.random() * 3}s`;
-        starsContainer.appendChild(star);
-    }
-
-    for (let i = 0; i < petalCount; i++) {
-        const petal = document.createElement("div");
-        petal.classList.add("petal");
-        const width = Math.random() * 12 + 10;
-        const height = width * 1.4;
-        petal.style.width = `${width}px`;
-        petal.style.height = `${height}px`;
-        petal.style.left = `${Math.random() * 100}vw`;
-        petal.style.animationDuration = `${Math.random() * 8 + 7}s`;
-        petal.style.animationDelay = `${Math.random() * 10}s`;
-        petalsContainer.appendChild(petal);
-    }
 
     /* 6. Mouse Glow Effect & Parallax (Desktop only) */
     const cursorGlow = document.getElementById("cursor-glow");
@@ -180,7 +180,7 @@ document.addEventListener("DOMContentLoaded", () => {
         fullPoemImg.src = poemImgSrc;
         modal.classList.remove("hidden");
         setTimeout(() => modal.classList.add("show"), 10);
-        document.body.style.overflow = "hidden"; // Prevent background scrolling
+        document.body.style.overflow = "hidden";
     });
 
     function hideModal() {
