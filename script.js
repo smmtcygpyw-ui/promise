@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-    /* 1. Starry Sky & Floating Flower Petals Generation (Run early for loading screen ambient effect) */
+    /* 1. Starry Sky & Floating Flower Petals Generation */
     const starsContainer = document.getElementById("stars");
     const petalsContainer = document.getElementById("petals");
     const starCount = window.innerWidth < 768 ? 50 : 120;
@@ -31,31 +31,44 @@ document.addEventListener("DOMContentLoaded", () => {
         petalsContainer.appendChild(petal);
     }
 
-    /* 2. Loading Screen Sequence */
+    /* 2. Loading Screen Sequence Functionality */
     const loadingItems = document.querySelectorAll(".loading-item");
     const loadingScreen = document.getElementById("loading-screen");
     const mainContent = document.getElementById("main-content");
     const bgAudio = document.getElementById("bg-audio");
     
-    let delay = 500;
-    loadingItems.forEach((item, index) => {
-        setTimeout(() => {
-            item.classList.add("visible");
-        }, delay);
-        delay += 600;
-    });
-
-    setTimeout(() => {
-        loadingScreen.style.opacity = "0";
-        loadingScreen.style.visibility = "hidden";
-        mainContent.classList.remove("hidden-content");
-        mainContent.classList.add("visible-content");
+    function startMemoriesSequence() {
+        // Reset states
+        loadingScreen.style.opacity = "1";
+        loadingScreen.style.visibility = "visible";
+        mainContent.classList.remove("visible-content");
+        mainContent.classList.add("hidden-content");
         
-        // Trigger Hero Typewriter after loading fades
-        setTimeout(typeHeroTitle, 500);
-    }, delay + 800);
+        loadingItems.forEach(item => item.classList.remove("visible"));
+        
+        let delay = 500;
+        loadingItems.forEach((item) => {
+            setTimeout(() => {
+                item.classList.add("visible");
+            }, delay);
+            delay += 600;
+        });
 
-    /* 3. Audio Control System & Auto-Play handling */
+        setTimeout(() => {
+            loadingScreen.style.opacity = "0";
+            loadingScreen.style.visibility = "hidden";
+            mainContent.classList.remove("hidden-content");
+            mainContent.classList.add("visible-content");
+            
+            // Trigger Hero Typewriter after loading screen fades away
+            setTimeout(typeHeroTitle, 500);
+        }, delay + 800);
+    }
+
+    // Start initial sequence sequence immediately
+    startMemoriesSequence();
+
+    /* 3. Audio Control System & Playback handling */
     const playPauseBtn = document.getElementById("play-pause-btn");
     const playIcon = document.getElementById("play-icon");
     const pauseIcon = document.getElementById("pause-icon");
@@ -107,7 +120,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // Play music on first interaction anywhere on the document
     function handleFirstInteraction() {
         if (!isPlaying) {
             playMusic();
@@ -125,13 +137,20 @@ document.addEventListener("DOMContentLoaded", () => {
     let charIndex = 0;
 
     function typeHeroTitle() {
-        if (charIndex < textToType.length) {
-            typeTarget.textContent += textToType.charAt(charIndex);
-            charIndex++;
-            setTimeout(typeHeroTitle, 120);
-        } else {
-            subtitle.classList.add("visible");
+        typeTarget.textContent = "";
+        charIndex = 0;
+        subtitle.classList.remove("visible");
+        
+        function type() {
+            if (charIndex < textToType.length) {
+                typeTarget.textContent += textToType.charAt(charIndex);
+                charIndex++;
+                setTimeout(type, 120);
+            } else {
+                subtitle.classList.add("visible");
+            }
         }
+        type();
     }
 
     /* 5. Button Smooth Scroll to Gift Journey */
@@ -151,18 +170,17 @@ document.addEventListener("DOMContentLoaded", () => {
         cursorGlow.style.display = "none";
     }
 
-    /* 7. Scroll Reveal Animation & Parallax on Cards */
+    /* 7. Scroll Reveal Animation Setup */
     const revealElements = document.querySelectorAll(".scroll-reveal");
     const observerOptions = {
         threshold: 0.15,
         rootMargin: "0px 0px -50px 0px"
     };
 
-    const scrollObserver = new IntersectionObserver((entries, observer) => {
+    let scrollObserver = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add("active");
-                observer.unobserve(entry.target);
             }
         });
     }, observerOptions);
@@ -201,5 +219,20 @@ document.addEventListener("DOMContentLoaded", () => {
         if (e.key === "Escape" && modal.classList.contains("show")) {
             hideModal();
         }
+    });
+
+    /* 9. Experience Relive Reset Action */
+    const replayBtn = document.getElementById("replay-btn");
+    replayBtn.addEventListener("click", () => {
+        // Instantly snap scroll back to top window position
+        window.scrollTo({ top: 0, behavior: "auto" });
+        
+        // Remove scroll animations classes to allow fresh re-triggers
+        revealElements.forEach(el => el.classList.remove("active"));
+        
+        // Rerun memory loader process cleanly
+        setTimeout(() => {
+            startMemoriesSequence();
+        }, 100);
     });
 });
